@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <title>电商经营分析与 Agent 演示</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/demo-mark.svg" />
+    <link rel="stylesheet" href="./styles.css?v=20260903-daily-report-trend-v2" />
+    <script src="./vendor/echarts.min.js?v=20260608-local"></script>
+  </head>
+  <body>
+    <div class="demo-notice" role="note"><strong>公开作品 · 全量模拟数据</strong><span>商品、店铺、人员及销售数据均独立生成，不代表任何企业。Agent 默认离线规则演示。</span></div>
+    <aside class="side-nav" aria-label="看板导航">
+      <div class="side-logo"><img src="./assets/demo-mark.svg" alt="公开模拟数据作品" /></div>
+      <button class="side-nav-item active" type="button" data-view="overview">经营看板</button>
+      <button class="side-nav-item" type="button" data-view="trend">趋势分析</button>
+      <button class="side-nav-item" type="button" data-view="channel">渠道分析</button>
+      <button class="side-nav-item" type="button" data-view="region">地域分析</button>
+      <button class="side-nav-item" type="button" data-view="ops">经营分析</button>
+      <button class="side-nav-item" type="button" data-view="detail">商品明细</button>
+      <button class="side-nav-item" type="button" data-view="ai">Agent 分析</button>
+    </aside>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">PORTFOLIO / SYNTHETIC DATA</p>
+        <h1>电商经营分析与 Agent 演示</h1>
+      </div>
+      <div class="meta">
+        <span id="batchMeta">读取中...</span>
+        <span id="userMeta"></span>
+        <button id="resetBtn" class="ghost-button">重置筛选</button>
+      </div>
+    </header>
+
+    <main>
+      <div id="dashboardControlPanel" class="filter-dock">
+        <div class="filter-header">
+          <section class="filters core-filters" aria-label="核心筛选">
+            <div class="filter-group">
+              <label for="store">店铺</label>
+              <div id="store" class="multi-select-container"></div>
+            </div>
+            <label>
+              日期范围
+              <select id="datePreset">
+                <option value="all">全量</option>
+                <option value="last30">最近30天</option>
+                <option value="last7" selected>最近7天</option>
+                <option value="yesterday">昨日</option>
+                <option value="custom">自定义日期</option>
+              </select>
+            </label>
+            <label class="custom-date-filter">
+              开始日期
+              <input id="dateStart" type="date" />
+            </label>
+            <label class="custom-date-filter">
+              结束日期
+              <input id="dateEnd" type="date" />
+            </label>
+            <div class="filter-group">
+              <label for="projectDepartment">产品归属</label>
+              <div id="projectDepartment" class="multi-select-container"></div>
+            </div>
+            <div class="filter-group">
+              <label for="bookSeries">书系</label>
+              <div id="bookSeries" class="multi-select-container"></div>
+            </div>
+          </section>
+          <button id="toggleAdvancedFiltersBtn" class="ghost-button advanced-toggle" type="button">高级筛选 ▾</button>
+        </div>
+
+        <div id="advancedFilters" class="advanced-filters collapsed">
+          <section class="filters detail-filters" aria-label="高级维度筛选">
+            <div class="filter-group">
+              <label for="contentType">流量体裁</label>
+              <div id="contentType" class="multi-select-container"></div>
+            </div>
+            <div class="filter-group">
+              <label for="sourceType">销售来源</label>
+              <div id="sourceType" class="multi-select-container"></div>
+            </div>
+            <div class="filter-group">
+              <label for="sourceDepartment">销售归属</label>
+              <div id="sourceDepartment" class="multi-select-container"></div>
+            </div>
+            <div class="filter-group">
+              <label for="sourceManager">负责人</label>
+              <div id="sourceManager" class="multi-select-container"></div>
+            </div>
+            <div class="filter-group">
+              <label for="sourceGroup">账号组</label>
+              <div id="sourceGroup" class="multi-select-container"></div>
+            </div>
+            <div class="filter-group">
+              <label for="sourceDetail">账号/达人</label>
+              <div id="sourceDetail" class="multi-select-container"></div>
+            </div>
+            <div class="filter-group">
+              <label for="segment">学段</label>
+              <div id="segment" class="multi-select-container"></div>
+            </div>
+          </section>
+        </div>
+
+        <div id="dateRangeHint" class="date-range-note">按数据最新日期计算</div>
+
+        <section class="quick-filter-stack" aria-label="书系快捷筛选">
+          <div class="quick-filter-line">
+            <span>高销量书系 Top10</span>
+            <div id="topSeriesChips" class="chip-row"></div>
+          </div>
+          <div class="quick-filter-line">
+            <span>近期起量书系</span>
+            <div id="riseSeriesChips" class="chip-row"></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="kpis view-section" data-view-section="overview" aria-label="核心指标">
+        <article>
+          <span>有效销量</span>
+          <strong id="kpiSales">-</strong>
+          <small>商品数量合计</small>
+        </article>
+        <article>
+          <span>成交额</span>
+          <strong id="kpiAmount">-</strong>
+          <small>模拟数量 × 模拟单价</small>
+        </article>
+        <article>
+          <span>有效子订单</span>
+          <strong id="kpiOrders">-</strong>
+          <small>已完成/已发货/待发货/已支付</small>
+        </article>
+        <article>
+          <span>示例赠品识别量</span>
+          <strong id="kpiHighlight">-</strong>
+          <small>套装附带 + 单独售卖，不等同销售排行</small>
+        </article>
+        <article>
+          <span>覆盖书系</span>
+          <strong id="kpiSeries">-</strong>
+          <small>当前筛选后</small>
+        </article>
+        <article>
+          <span>书系归属率</span>
+          <strong id="kpiMatch">-</strong>
+          <small>自编码匹配+标题识别</small>
+        </article>
+        <article>
+          <span>待更新占比</span>
+          <strong id="kpiPending">-</strong>
+          <small>流量体裁待更新</small>
+        </article>
+      </section>
+
+      <section class="daily-report-panel view-section" data-view-section="overview" aria-label="销售日报">
+        <div class="table-head">
+          <div>
+            <h2 id="dailyReportTitle">昨日销售日报</h2>
+            <p id="dailyReportNote">按学段列出书系销量 Top10；示例赠品按识别量计入，曲线为最近7日销量</p>
+          </div>
+          <span id="dailyReportMeta"></span>
+        </div>
+        <div class="daily-report-summary" id="dailyReportSummary"></div>
+        <div class="daily-report-segment-tabs" id="dailyReportSegmentTabs" role="tablist" aria-label="选择日报学段"></div>
+        <div class="daily-report-wrap">
+          <table class="daily-report-table">
+            <thead>
+              <tr>
+                <th>排名</th>
+                <th>书系</th>
+                <th class="num">销量</th>
+                <th class="num">成交额</th>
+                <th>近7日趋势</th>
+                <th>主要销售来源</th>
+                <th>销售组 / 负责人 / 销量（&gt;1,000册）</th>
+              </tr>
+            </thead>
+            <tbody id="dailyReportBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="rhythm-panel view-section" data-view-section="overview" aria-label="线上品书系爆品趋势表">
+        <div class="table-head">
+          <div>
+            <h2>线上品书系爆品趋势表</h2>
+            <p>按当前筛选下的书系销量判断是否打爆、起量或回落</p>
+          </div>
+          <span id="rhythmMeta"></span>
+        </div>
+        <div class="rhythm-rules">
+          <span><b>打爆</b>：示例规则：近7天销量 ≥ 前7天的 125%，且出现明显峰值</span>
+          <span><b>稳定</b>：示例规则：近7天相对前7天在 ±15% 内，且至少 5 天有销量</span>
+          <span><b>下滑</b>：示例规则：近7天销量 ≤ 前7天的 75%</span>
+          <span><b>待观察</b>：其余情况，常见于低量、波动或新品刚起量</span>
+        </div>
+        <div class="rhythm-wrap">
+          <table class="rhythm-table">
+            <thead>
+              <tr>
+                <th>书系</th>
+                <th class="num">总销量</th>
+                <th class="num">成交额</th>
+                <th>峰值日</th>
+                <th class="num">连续出单</th>
+                <th>近7天趋势</th>
+                <th>7日变化</th>
+                <th>爆品判断</th>
+              </tr>
+            </thead>
+            <tbody id="rhythmBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="source-analysis-panel view-section" data-view-section="channel" aria-label="爆品来源渠道分析">
+        <div class="table-head">
+          <div>
+            <h2>爆品来源渠道分析</h2>
+            <p id="sourceAnalysisNote">选择一个书系后，判断是直播间、自营渠道还是达人带货带起来的</p>
+          </div>
+          <span id="sourceAnalysisMeta"></span>
+        </div>
+        <div class="source-rise-line">
+          <span>近期起量渠道</span>
+          <div id="riseSourceChips" class="chip-row"></div>
+        </div>
+        <div class="source-summary" id="sourceActionSummary"></div>
+        <div class="rhythm-wrap">
+          <table class="source-analysis-table">
+            <thead>
+              <tr>
+                <th>来源</th>
+                <th>销售归属</th>
+                <th>流量体裁</th>
+                <th class="num">近7天销量</th>
+                <th class="num" id="sourceLast30Header">近30天销量</th>
+                <th class="num">近7天成交额</th>
+                <th>近7天趋势</th>
+                <th>贡献占比</th>
+                <th>7日变化</th>
+                <th>渠道判断</th>
+              </tr>
+            </thead>
+            <tbody id="sourceAnalysisBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="chart-grid">
+        <article class="panel panel-wide view-section" data-view-section="trend">
+          <div class="panel-title">
+            <div>
+              <h2>每日销量趋势</h2>
+              <p id="trendNote">选择书系后，按“流量体裁｜来源明细”展示日销量趋势</p>
+            </div>
+          </div>
+          <div class="trend-layout">
+            <aside class="trend-side">
+              <div class="trend-side-title">
+                <span>图中来源</span>
+                <button id="clearTrendSourceBtn" class="link-button" type="button" hidden>清除选择</button>
+              </div>
+              <div id="trendLegendList" class="trend-legend-list"></div>
+            </aside>
+            <div id="trendChart" class="chart"></div>
+          </div>
+        </article>
+
+        <article class="panel view-section" data-view-section="channel">
+          <div class="panel-title">
+            <div>
+              <h2>流量体裁结构</h2>
+              <p>直播、短视频、商品卡等入口贡献排行</p>
+            </div>
+          </div>
+          <div id="contentChart" class="chart small"></div>
+        </article>
+
+        <article class="panel view-section" data-view-section="channel">
+          <div class="panel-title">
+            <div>
+              <h2>销售来源排行</h2>
+              <p>按“流量体裁｜来源明细”排行，和左侧体裁、下方桑基同口径</p>
+            </div>
+          </div>
+          <div id="sourceChart" class="chart small"></div>
+        </article>
+
+        <article class="panel panel-wide view-section" data-view-section="channel">
+          <div class="panel-title">
+            <div>
+              <h2>销量流向桑基图</h2>
+              <p>销售归属 → 店铺 → 负责人 → 账号组 → 账号/达人 → 书系 → 流量体裁；先看每个人/账号卖了哪些书系，再看来自直播、短视频还是商品卡</p>
+            </div>
+          </div>
+          <div id="sankeyChart" class="chart sankey"></div>
+        </article>
+
+        <article class="panel panel-wide view-section" data-view-section="channel">
+          <div class="panel-title">
+            <div>
+              <h2>直播间负责人书系销量矩阵</h2>
+              <p>按当前筛选的直播间数据，展示每位负责人排名前3的书系；示例赠品按识别量计入排名</p>
+            </div>
+            <span id="roomSeriesHeatmapMeta"></span>
+          </div>
+          <div id="roomSeriesHeatmap" class="chart heatmap"></div>
+        </article>
+      </section>
+
+      <!-- 地域分析 -->
+      <section class="region-panel view-section" data-view-section="region" aria-label="地域分析">
+        <div class="region-map-row">
+          <article class="panel region-map-panel">
+            <div class="panel-title">
+              <div>
+                <h2>全国销量分布</h2>
+                <p id="regionProvinceMeta">颜色深浅表示销量高低，点击省份下钻到城市</p>
+              </div>
+            </div>
+            <div class="map-container">
+              <button id="mapBackBtn" class="map-back-button" type="button" style="display:none" title="返回全国视图">← 返回全国</button>
+              <div id="chinaMapChart" class="chart china-map-chart"></div>
+              <div id="mapZoomHint" class="map-zoom-hint">🖱 滚轮缩放 ｜ 拖拽移动 ｜ 点击省份下钻</div>
+            </div>
+            <div class="time-slider-bar">
+              <button id="regionTimePrev" class="time-step-button" type="button" aria-label="上一天">◀</button>
+              <input type="range" id="regionTimeSlider" class="time-slider" min="0" max="100" value="100" step="1" />
+              <button id="regionTimeNext" class="time-step-button" type="button" aria-label="下一天">▶</button>
+              <span id="regionTimeLabel" class="time-slider-date">全部日期</span>
+            </div>
+          </article>
+          <aside class="panel region-rank-panel">
+            <div class="panel-title compact-title">
+              <div>
+                <h2>省份销量排行</h2>
+                <p id="regionRankMeta">点击省份聚焦城市与书系趋势</p>
+              </div>
+            </div>
+            <div id="regionProvinceRank" class="province-rank-list"></div>
+          </aside>
+        </div>
+        <div class="region-bottom-row">
+          <article class="panel region-city-panel">
+            <div class="panel-title">
+              <div>
+                <h2 id="regionCityTitle">全国 · 城市销量 Top20</h2>
+                <p id="regionCityMeta">点击地图省份查看该省城市排行</p>
+              </div>
+            </div>
+            <div id="cityBarChart" class="chart city-bar-chart"></div>
+          </article>
+          <article class="panel region-trend-panel">
+            <div class="panel-title">
+              <div>
+                <h2 id="regionTrendTitle">全国 · 书系日趋势</h2>
+                <p id="regionTrendMeta">选择省份后可聚焦该省书系趋势</p>
+              </div>
+            </div>
+            <div id="regionTrendChart" class="chart region-trend-chart"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 经营分析 -->
+      <section class="ops-panel view-section" data-view-section="ops" aria-label="经营分析">
+        <div class="ops-top-row">
+          <article class="panel ops-chart-panel">
+            <div class="panel-title">
+              <div>
+                <h2>时段热力分布</h2>
+                <p>按小时×星期几的销量热力图，颜色越深销量越高</p>
+              </div>
+            </div>
+            <div id="hourHeatmap" class="chart ops-chart"></div>
+          </article>
+          <article class="panel ops-chart-panel">
+            <div class="panel-title">
+              <div>
+                <h2>书系价格带结构</h2>
+                <p>按销量拆分各书系价格带，右侧显示书系总销量</p>
+              </div>
+            </div>
+            <div id="priceBoxChart" class="chart ops-chart"></div>
+          </article>
+        </div>
+        <div class="ops-bottom-row">
+          <article class="panel ops-chart-panel">
+            <div class="panel-title">
+              <div>
+                <h2>售后状态分布</h2>
+                <p>按退款、退货、换货、补寄等状态分布</p>
+              </div>
+            </div>
+            <div id="aftersalePieChart" class="chart ops-chart"></div>
+          </article>
+          <article class="panel ops-chart-panel">
+            <div class="panel-title">
+              <div>
+                <h2>书系广义退货率排行</h2>
+                <p>退款 + 退货流程 / 统计销量；右侧滚动查看全部书系</p>
+              </div>
+            </div>
+            <div id="aftersaleRankChart" class="chart ops-chart"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="tabs view-section" data-view-section="detail">
+        <button class="tab active" data-tab="series">书系明细</button>
+        <button class="tab" data-tab="source">来源明细</button>
+        <button class="tab" data-tab="product">商品匹配</button>
+        <button class="tab" data-tab="influencer">达人</button>
+        <button class="tab" data-tab="quality">质量检查</button>
+      </section>
+
+      <section class="table-panel view-section" data-view-section="detail">
+        <div class="table-head">
+          <h2 id="tableTitle">书系明细</h2>
+          <span id="tableMeta"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="chatPanel" class="ai-workbench view-section hidden" data-view-section="ai" aria-label="Demo Agent分析助手">
+        <div class="chat-workspace">
+          <aside class="chat-thread-rail" aria-label="Demo Agent对话列表">
+            <div class="chat-thread-head">
+              <div>
+                <span>销售数据助手</span>
+                <strong>分析对话</strong>
+              </div>
+              <button id="chatNewThreadBtn" class="chat-new-thread" type="button" title="新建对话" aria-label="新建对话">+</button>
+            </div>
+            <div id="chatThreadList" class="chat-thread-list"></div>
+          </aside>
+          <section class="chat-main" aria-label="当前Demo Agent对话">
+            <div class="chat-header">
+              <img class="chat-assistant-logo" src="./assets/demo-mark.svg" alt="" />
+              <div class="chat-header-copy">
+                <h3>Demo Agent</h3>
+                <p><span class="chat-online-dot" aria-hidden="true"></span><span id="agentModeLabel">离线规则演示 · 不调用外部模型</span></p>
+              </div>
+              <div class="chat-controls" aria-label="Demo Agent回答设置">
+                <label class="chat-control">
+                  <span>运行模式</span>
+                  <select id="chatModel" disabled>
+                    <option value="demo-local">离线规则演示</option>
+                  </select>
+                </label>
+                <label class="chat-control">
+                  <span>输出风格</span>
+                  <select id="chatOutputStyle">
+                    <option value="concise">简洁结论</option>
+                    <option value="executive">经营汇报</option>
+                    <option value="detailed">详细分析</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div id="chatMessages" class="chat-messages"></div>
+            <div id="chatError" class="chat-error hidden"></div>
+            <div class="chat-composer-shell">
+              <div class="chat-template-bar" aria-label="快捷提问">
+                <div class="chat-quick-actions" role="toolbar" aria-label="常用分析问题">
+                  <button class="chat-quick-action" type="button" data-chat-template="daily-brief"><span class="chat-quick-icon teal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4.5h12v15H6zM9 8h6M9 12h6M9 16h4"/></svg></span>经营日报</button>
+                  <button class="chat-quick-action" type="button" data-chat-query="请按学段分类，统计昨日各书系销量并排行前十名，同时展示每个书系的主要销售渠道。"><span class="chat-quick-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 18V10M12 18V6M19 18v-4"/></svg></span>昨日销量排行</button>
+                  <button class="chat-quick-action" type="button" data-chat-template="channel-review"><span class="chat-quick-icon violet" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 16.5 9 11l4 3 7-7"/><path d="M16 7h4v4"/></svg></span>渠道分析</button>
+                  <button class="chat-quick-action" type="button" data-chat-query="请拆解昨日“其他来源”的销量构成，列出来源明细、销量占比，并判断哪些属于需要继续归类的长尾来源。"><span class="chat-quick-icon indigo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6h12M6 12h8M6 18h5"/><path d="M17 14v6M14 17h6"/></svg></span>长尾来源拆解</button>
+                </div>
+                <button id="chatFeatureBtn" class="chat-feature-trigger" type="button" aria-expanded="false" aria-controls="chatFeatureMenu" title="更多分析方向">
+                  <span class="chat-feature-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5zM8 9h8M8 12h8M8 15h5"/></svg></span><span>全部功能</span>
+                </button>
+              </div>
+              <div id="chatFeatureMenu" class="chat-feature-menu hidden" role="menu" aria-label="Demo Agent功能">
+                <div class="chat-feature-menu-head"><strong>分析方向</strong><span>填入输入框，不会自动发送</span></div>
+                <div class="chat-feature-grid">
+                  <button class="chat-feature-item" type="button" role="menuitem" data-chat-template="period-comparison"><span class="chat-feature-icon blue">↔</span><span class="chat-feature-copy"><strong>周期对比</strong><small>比较销量、成交额和渠道结构</small></span></button>
+                  <button class="chat-feature-item" type="button" role="menuitem" data-chat-template="decline-diagnosis"><span class="chat-feature-icon orange">↓</span><span class="chat-feature-copy"><strong>下滑归因</strong><small>定位书系、店铺、账号或地区</small></span></button>
+                  <button class="chat-feature-item" type="button" role="menuitem" data-chat-template="growth-opportunities"><span class="chat-feature-icon green">↗</span><span class="chat-feature-copy"><strong>增长机会</strong><small>找出值得复制或加码的方向</small></span></button>
+                  <button class="chat-feature-item" type="button" role="menuitem" data-chat-template="channel-review"><span class="chat-feature-icon cyan">⌁</span><span class="chat-feature-copy"><strong>渠道复盘</strong><small>复盘直播、短视频和商品卡</small></span></button>
+                  <button class="chat-feature-item" type="button" role="menuitem" data-chat-export="true"><span class="chat-feature-icon teal">↓</span><span class="chat-feature-copy"><strong>导出当前对话</strong><small>下载 Markdown 文件</small></span></button>
+                </div>
+              </div>
+              <div class="chat-input-area">
+                <textarea id="chatInput" class="chat-input" placeholder="输入经营问题…（Enter 发送）" rows="1"></textarea>
+                <button id="chatStopBtn" class="chat-stop hidden" type="button" title="停止分析" aria-label="停止分析">
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"></rect></svg>
+                </button>
+                <button id="chatSendBtn" class="chat-send" type="button" title="发送">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+
+    <script src="./vendor/marked.min.js"></script>
+    <script src="./vendor/purify.min.js"></script>
+    <script src="./app.js?v=20260907-hide-partial-day-v2"></script>
+  </body>
+</html>

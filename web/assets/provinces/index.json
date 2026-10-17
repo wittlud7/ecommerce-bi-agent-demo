@@ -1,0 +1,159 @@
+{
+  "provinces": {
+    "110000": {
+      "name": "北京市",
+      "file": "110000.json",
+      "city_count": 16
+    },
+    "120000": {
+      "name": "天津市",
+      "file": "120000.json",
+      "city_count": 16
+    },
+    "130000": {
+      "name": "河北省",
+      "file": "130000.json",
+      "city_count": 11
+    },
+    "140000": {
+      "name": "山西省",
+      "file": "140000.json",
+      "city_count": 11
+    },
+    "150000": {
+      "name": "内蒙古自治区",
+      "file": "150000.json",
+      "city_count": 12
+    },
+    "210000": {
+      "name": "辽宁省",
+      "file": "210000.json",
+      "city_count": 14
+    },
+    "220000": {
+      "name": "吉林省",
+      "file": "220000.json",
+      "city_count": 9
+    },
+    "230000": {
+      "name": "黑龙江省",
+      "file": "230000.json",
+      "city_count": 13
+    },
+    "310000": {
+      "name": "上海市",
+      "file": "310000.json",
+      "city_count": 16
+    },
+    "320000": {
+      "name": "江苏省",
+      "file": "320000.json",
+      "city_count": 13
+    },
+    "330000": {
+      "name": "浙江省",
+      "file": "330000.json",
+      "city_count": 11
+    },
+    "340000": {
+      "name": "安徽省",
+      "file": "340000.json",
+      "city_count": 16
+    },
+    "350000": {
+      "name": "福建省",
+      "file": "350000.json",
+      "city_count": 9
+    },
+    "360000": {
+      "name": "江西省",
+      "file": "360000.json",
+      "city_count": 11
+    },
+    "370000": {
+      "name": "山东省",
+      "file": "370000.json",
+      "city_count": 16
+    },
+    "410000": {
+      "name": "河南省",
+      "file": "410000.json",
+      "city_count": 18
+    },
+    "420000": {
+      "name": "湖北省",
+      "file": "420000.json",
+      "city_count": 17
+    },
+    "430000": {
+      "name": "湖南省",
+      "file": "430000.json",
+      "city_count": 14
+    },
+    "440000": {
+      "name": "广东省",
+      "file": "440000.json",
+      "city_count": 21
+    },
+    "450000": {
+      "name": "广西壮族自治区",
+      "file": "450000.json",
+      "city_count": 14
+    },
+    "460000": {
+      "name": "海南省",
+      "file": "460000.json",
+      "city_count": 19
+    },
+    "500000": {
+      "name": "重庆市",
+      "file": "500000.json",
+      "city_count": 38
+    },
+    "510000": {
+      "name": "四川省",
+      "file": "510000.json",
+      "city_count": 21
+    },
+    "520000": {
+      "name": "贵州省",
+      "file": "520000.json",
+      "city_count": 9
+    },
+    "530000": {
+      "name": "云南省",
+      "file": "530000.json",
+      "city_count": 16
+    },
+    "540000": {
+      "name": "西藏自治区",
+      "file": "540000.json",
+      "city_count": 7
+    },
+    "610000": {
+      "name": "陕西省",
+      "file": "610000.json",
+      "city_count": 10
+    },
+    "620000": {
+      "name": "甘肃省",
+      "file": "620000.json",
+      "city_count": 14
+    },
+    "630000": {
+      "name": "青海省",
+      "file": "630000.json",
+      "city_count": 8
+    },
+    "640000": {
+      "name": "宁夏回族自治区",
+      "file": "640000.json",
+      "city_count": 5
+    },
+    "650000": {
+      "name": "新疆维吾尔自治区",
+      "file": "650000.json",
+      "city_count": 24
+    }
+  }
+}

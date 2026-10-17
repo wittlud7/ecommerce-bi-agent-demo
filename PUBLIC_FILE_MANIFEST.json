@@ -1,0 +1,360 @@
+{
+  "data_kind": "synthetic",
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "a47a3efd5f61be54f233945655f251becce6d1d00b5580cacb4f73edee560428",
+      "bytes": 207
+    },
+    {
+      "path": ".github/workflows/pages.yml",
+      "sha256": "9014bd6ac7e26fce6d1ad5a201e6fa4fd03690181904e5e6cb112701a98c18c8",
+      "bytes": 1001
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "b08f5ad1cd5d7011d2f5bc1cb10bc58988ebbd09ea83423bd85ac0924affc499",
+      "bytes": 524
+    },
+    {
+      "path": "README.md",
+      "sha256": "dd3002b07fa2e7d6a137cfde97933f14215bb1f1fb994e64613fadfe11dd7c3e",
+      "bytes": 8347
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "ff5d78f0ab4805081dd3a86faabefd30c2a7cd4f66fae63d8720ae342c9d01e8",
+      "bytes": 936
+    },
+    {
+      "path": "docs/images/agent.png",
+      "sha256": "60b52f6671f9dd344ee12dddb05cfed109e1fc0abbcf9943487b2acbae250b2c",
+      "bytes": 239252
+    },
+    {
+      "path": "docs/images/overview.png",
+      "sha256": "d2e3aab4dad7a41765852a916357ad28586f8d869c9a85c89d49e609b6e1f4e2",
+      "bytes": 518544
+    },
+    {
+      "path": "docs/数据处理与审阅说明.md",
+      "sha256": "dad36489af340da6764e339ba6109aa2ce13a28ea1faac43bbc76318b5431310",
+      "bytes": 2253
+    },
+    {
+      "path": "docs/本次处理结果.json",
+      "sha256": "cfac7a49e3946e7f394a87c31bf007bbacc3abf565956a0ee03b746c589eb12e",
+      "bytes": 1844
+    },
+    {
+      "path": "docs/架构与作品讲解.md",
+      "sha256": "11bfa3d96d086b38f65592a04c1fe4a554da063af10756b873b7ad34c3d167fe",
+      "bytes": 2820
+    },
+    {
+      "path": "requirements-mcp.txt",
+      "sha256": "cea259f20b366b2b52e319d789d647ab8505eb9d382f3a0f65e8cd1af54cffe3",
+      "bytes": 85
+    },
+    {
+      "path": "scripts/analytics_engine.py",
+      "sha256": "b6a442ea4e2a5321e57686397edca7af51713bc94977b736281c7315b642ca15",
+      "bytes": 29711
+    },
+    {
+      "path": "scripts/build_static.py",
+      "sha256": "38f5aff2c3b869bf671a9491e701ba35c911ae2ac41d12a03c67d5c4ade17bc4",
+      "bytes": 2421
+    },
+    {
+      "path": "scripts/check_public_data.py",
+      "sha256": "508eab53d9545b47553d31b1bd1231669ecdcfce5fc3efd3c049bd63ef3571ff",
+      "bytes": 3836
+    },
+    {
+      "path": "scripts/dashboard_queries.py",
+      "sha256": "52a12cf32113a3299a511102bc50ea1346f7ef61fa1345fd82306cf904c86624",
+      "bytes": 19122
+    },
+    {
+      "path": "scripts/demo_agent.py",
+      "sha256": "a7c3e5899cd0f447db8b021f85a5a0b63e06c453ec8806dfbc8da046d0742e61",
+      "bytes": 17545
+    },
+    {
+      "path": "scripts/generate_demo_data.py",
+      "sha256": "6467f0ec61e5193f3b3974d2b6e81f29d22cbe0809dbe20a2f682c178b3594f2",
+      "bytes": 9798
+    },
+    {
+      "path": "scripts/mcp_server.py",
+      "sha256": "867afe10359ec57612b302e67d1b77ca4ca6fdff10871c60a12e01d74ec72f30",
+      "bytes": 6296
+    },
+    {
+      "path": "scripts/serve_demo.py",
+      "sha256": "47c31409def21c5061ce0b2afc617506a647bc76e6ed77133922a8a465f0bd92",
+      "bytes": 7628
+    },
+    {
+      "path": "start_demo.bat",
+      "sha256": "7f1885b336f03a25decbb86e92ea55459b136c49fb221bc3718a156795f94e9e",
+      "bytes": 59
+    },
+    {
+      "path": "start_demo.command",
+      "sha256": "f48d335901e7fb1af2db29fda189c21547a2932f91e69e94ffead9ed9661ea52",
+      "bytes": 71
+    },
+    {
+      "path": "tests/static_contract.cjs",
+      "sha256": "c876e5937f3bbe38965796d75b49b761330cbb5a7f9619e2a5c54519f22fa4ab",
+      "bytes": 925
+    },
+    {
+      "path": "tests/test_analysis.py",
+      "sha256": "ed95dd0c5c1d724319f40ace5a7a71b3ed9645affa7aa236c03f318109eef5bb",
+      "bytes": 3788
+    },
+    {
+      "path": "tests/test_static.py",
+      "sha256": "544a7891d9335c445bd13e6e87dec47e56a92836ad3831cc20057b1d8e7ca511",
+      "bytes": 3834
+    },
+    {
+      "path": "web/app.js",
+      "sha256": "a9e37f5c0017e9ada9414bd7ec78f599625b2eca2600f5b27c4aef02952a92c6",
+      "bytes": 166813
+    },
+    {
+      "path": "web/assets/china_geojson.json",
+      "sha256": "02e474def2725db05247568511329ae67feb2cb53f72176e2180aa6565b53ffa",
+      "bytes": 633962
+    },
+    {
+      "path": "web/assets/demo-mark.svg",
+      "sha256": "2d952db8fda9dc7534c2276463f3f4ebc4887af6e5cfb127d0c22d432bdfeba2",
+      "bytes": 235
+    },
+    {
+      "path": "web/assets/provinces/110000.json",
+      "sha256": "9f4f55fc08f2d9d02b0ec900944ce55fd174bae21ff5bbc5260e76729afd6e71",
+      "bytes": 110038
+    },
+    {
+      "path": "web/assets/provinces/120000.json",
+      "sha256": "e51232981668be96e0174444255bfcf901b4a2ed9b4f827295345dccdc807014",
+      "bytes": 77245
+    },
+    {
+      "path": "web/assets/provinces/130000.json",
+      "sha256": "05b78fa284318741b17c513c0456c7c422dd9dfdd9edb9ecca8d66306b847c8e",
+      "bytes": 79930
+    },
+    {
+      "path": "web/assets/provinces/140000.json",
+      "sha256": "43ed72032b08ecbd32ac0525dbac20234707a5ea20cb85a118667fbb356a9bd0",
+      "bytes": 66288
+    },
+    {
+      "path": "web/assets/provinces/150000.json",
+      "sha256": "1187029050454285efaf494664d8cef6459f18894257e3a3c509c1a4c9011be1",
+      "bytes": 86279
+    },
+    {
+      "path": "web/assets/provinces/210000.json",
+      "sha256": "76076c94a6806928854ffa35b70019ab390f0cada18437e7be3ec0372b78ce31",
+      "bytes": 175668
+    },
+    {
+      "path": "web/assets/provinces/220000.json",
+      "sha256": "f41cb8d5d3a5187c3acecf1f2ddd811e3a1f3d0e2cdb3cabd5066bce5dc11a0e",
+      "bytes": 160255
+    },
+    {
+      "path": "web/assets/provinces/230000.json",
+      "sha256": "93a43a3a1fb527252795f9d9a3a09204cb110e04a362ee30e5286cfa9c2203ab",
+      "bytes": 159719
+    },
+    {
+      "path": "web/assets/provinces/310000.json",
+      "sha256": "5bfc0e2792b3376f71203efe62285da2e7da985d1499bf0695e1121159916f72",
+      "bytes": 90631
+    },
+    {
+      "path": "web/assets/provinces/320000.json",
+      "sha256": "2b9f1e68392851f4c854eec6c37ef4d6216ef4c57ce5c4df604c0d73d0b6db59",
+      "bytes": 106144
+    },
+    {
+      "path": "web/assets/provinces/330000.json",
+      "sha256": "85c0c5df7ccf78832b42c0940d26f015c81a755e039f6921f8f9b013c0f86b16",
+      "bytes": 130949
+    },
+    {
+      "path": "web/assets/provinces/340000.json",
+      "sha256": "d91516e0de4f8cc1a38a1da874cc69a27bcb17cb8fb11979a262e012e5a38805",
+      "bytes": 138551
+    },
+    {
+      "path": "web/assets/provinces/350000.json",
+      "sha256": "1e6fe69928b908ef6f838e00f4092d5dc39b1ae9d08f7d7f4b66cd1cb1f371fd",
+      "bytes": 124275
+    },
+    {
+      "path": "web/assets/provinces/360000.json",
+      "sha256": "c179bf300d5b5bc8f562c1221aaff19248b45aaeb2513c18e483f58935530e04",
+      "bytes": 132414
+    },
+    {
+      "path": "web/assets/provinces/370000.json",
+      "sha256": "879b64da7f32ac7265e2c20d883568501661683710919f0d51f14d5526c5d596",
+      "bytes": 182643
+    },
+    {
+      "path": "web/assets/provinces/410000.json",
+      "sha256": "f5d738cfe4fb7d74cc349d540a020e4c9c98d234446ce6ab92f36ee1d24eaf24",
+      "bytes": 167325
+    },
+    {
+      "path": "web/assets/provinces/420000.json",
+      "sha256": "eb023c3a126d878599ec13ca94b2567a65b1b469fb6036ec1909736adfd15584",
+      "bytes": 169502
+    },
+    {
+      "path": "web/assets/provinces/430000.json",
+      "sha256": "c6db47e8e0628a49f46da684f2c41875cc9919c397e0680801c114243562a68e",
+      "bytes": 191139
+    },
+    {
+      "path": "web/assets/provinces/440000.json",
+      "sha256": "78c621ec9989c752fa4716f3d09c47a78ac51b562652579107a92ff36993d39a",
+      "bytes": 209937
+    },
+    {
+      "path": "web/assets/provinces/450000.json",
+      "sha256": "a82afd49c049ef3c7cc50502d191368c64d060091747e9ccbbc98ecdaf739ef8",
+      "bytes": 182767
+    },
+    {
+      "path": "web/assets/provinces/460000.json",
+      "sha256": "49d73db57ed1436bd93d7c1508cb5322a66d0360552535e3d82e9c040862202c",
+      "bytes": 37159
+    },
+    {
+      "path": "web/assets/provinces/500000.json",
+      "sha256": "bd6a1718c05376f7c25908a46395fe8bf5e804bfd7c2e9f0b4b7777a6f1ee442",
+      "bytes": 176462
+    },
+    {
+      "path": "web/assets/provinces/510000.json",
+      "sha256": "a13321fff37786a605f05004e8b197702105f900bdfc86596dc0813efe0da140",
+      "bytes": 179373
+    },
+    {
+      "path": "web/assets/provinces/520000.json",
+      "sha256": "4d706d30c781dac5e011779350baae46765179bc9bf24b5d5c26ee7bf18320ec",
+      "bytes": 141627
+    },
+    {
+      "path": "web/assets/provinces/530000.json",
+      "sha256": "22fa9af5f4999cb306b3dff263b4dfd16eb0a80c47b295c27357c5f2a5fdca57",
+      "bytes": 133529
+    },
+    {
+      "path": "web/assets/provinces/540000.json",
+      "sha256": "d9b85d8e6c951e7f27c86e55deb353be034bd8ab2ec6c87748f9d2bcc8aae31e",
+      "bytes": 146882
+    },
+    {
+      "path": "web/assets/provinces/610000.json",
+      "sha256": "119585b9917a79a3aaa3f0a93aa74bcec10d94914c397c6b05fd08355b5be511",
+      "bytes": 78060
+    },
+    {
+      "path": "web/assets/provinces/620000.json",
+      "sha256": "85bddfb10033ce1904c3763bb692a2807355f1ac496aa40b9976b0d1914f1735",
+      "bytes": 114993
+    },
+    {
+      "path": "web/assets/provinces/630000.json",
+      "sha256": "fb6e7edea03c7e3f87b48866ac4ce3c9029a637e9c2fe2ba9827b04ddf9c8ae6",
+      "bytes": 106798
+    },
+    {
+      "path": "web/assets/provinces/640000.json",
+      "sha256": "8e46158a7629fe7e225391abd238b7180ac2dfb3f747c2070e74e3183278996b",
+      "bytes": 53891
+    },
+    {
+      "path": "web/assets/provinces/650000.json",
+      "sha256": "ff7fb5bb8a742a21e272fd9a5cd3ca149433e68ca8b04e62267eb4337dc839ed",
+      "bytes": 130199
+    },
+    {
+      "path": "web/assets/provinces/index.json",
+      "sha256": "f5e00d5192099c2d3f8a53baae4a8052853fc7fe4362b5771035e64779673881",
+      "bytes": 3394
+    },
+    {
+      "path": "web/data/dashboard.db",
+      "sha256": "dfcda4fa6d03a172c8ebd2e87ad1c2b3e31a788478232fce464ca1a7595b96b3",
+      "bytes": 8937472
+    },
+    {
+      "path": "web/data/provenance.json",
+      "sha256": "a645120bff28f82e77a8301710fb8f383f8529fdf83995696244d34af6663a86",
+      "bytes": 591
+    },
+    {
+      "path": "web/index.html",
+      "sha256": "4175a6e4f0a98f9fb67d6e4ce4365f11f76578b070c93e3b59e86d8d3b2d032d",
+      "bytes": 25710
+    },
+    {
+      "path": "web/static-runtime.js",
+      "sha256": "d7991bc5215a44ea063b2cedca1d26dbc6ac7c66df0e39965b5c01f8c2a91d7f",
+      "bytes": 13037
+    },
+    {
+      "path": "web/styles.css",
+      "sha256": "6a7b9925b4289a32fefad8e5cbe77f5fc42fd942fe1759a9e05af0e787207dde",
+      "bytes": 84244
+    },
+    {
+      "path": "web/vendor/dompurify.LICENSE.txt",
+      "sha256": "1b02e03c3fb4f87d476c128f0eb9def1f5a1709d28b180465228bd41574623b7",
+      "bytes": 27729
+    },
+    {
+      "path": "web/vendor/echarts.LICENSE.txt",
+      "sha256": "634293835b43a6dd2094fa39182a3d9a6b9ca43b7fdb9ac354e8037af2a3093a",
+      "bytes": 11990
+    },
+    {
+      "path": "web/vendor/echarts.NOTICE.txt",
+      "sha256": "fa99ac3af859d0e13166906dc53a73ad34a08898da7e8ae83407275496e9e30c",
+      "bytes": 168
+    },
+    {
+      "path": "web/vendor/echarts.min.js",
+      "sha256": "bf4a223524e40b77c304bec67e1222cf551f14880cf42c69dc046558e11c07b1",
+      "bytes": 1034102
+    },
+    {
+      "path": "web/vendor/marked.LICENSE.md",
+      "sha256": "8e3a3f82f59a60958f56ca08f445647c32a4733dc7ca6c2c46f6eb898471ab9c",
+      "bytes": 2942
+    },
+    {
+      "path": "web/vendor/marked.min.js",
+      "sha256": "0a0fbf5ea62f007e7ede02d6f75b4eb142ee8acb310cd957ed566af3304c0bcc",
+      "bytes": 36546
+    },
+    {
+      "path": "web/vendor/purify.min.js",
+      "sha256": "40cff492b54353a55cdf9ffb369786539ffb7d54d25f97dd4a1e8975b309c35d",
+      "bytes": 22637
+    }
+  ]
+}

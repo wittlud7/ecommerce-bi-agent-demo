@@ -1,0 +1,2 @@
+# Optional only; the dashboard and offline Agent need no pip packages.
+mcp>=1.0,<2.0

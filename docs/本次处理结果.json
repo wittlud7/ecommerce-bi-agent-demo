@@ -1,0 +1,48 @@
+{
+  "status": "发布前检查通过；平台上传与部署状态以 GitHub 仓库及 Actions 为准",
+  "data_replacement": "从零生成，无原记录映射、采样、缩放或扰动",
+  "synthetic_data": {
+    "data_kind": "independently_generated_synthetic_data",
+    "seed": 20261017,
+    "row_count": 9720,
+    "days": 90,
+    "date_start": "2025-01-01",
+    "date_end": "2025-03-31",
+    "source_business_files_read": 0,
+    "original_record_mapping": false,
+    "description": "全部商品、店铺、人员、账号、价格、数量、日期分布及售后数据由固定种子独立生成；没有原始记录映射，不保留企业真实分布。省市边界是通用地理底图。",
+    "scenarios": [
+      "示例增长",
+      "示例下滑",
+      "示例平稳",
+      "人为设定的周期峰值"
+    ]
+  },
+  "checks": {
+    "原标识候选比对数": 7499,
+    "匹配残留文件数": 0,
+    "原Git历史": false,
+    "原数据库复制": false,
+    "原始Excel或订单导出": false,
+    "公司账号或凭据文件": false,
+    "浏览器本轮控制台错误": 0,
+    "默认演示外部网络请求": 0,
+    "日期切换": true,
+    "省市下钻": true,
+    "Agent对话及工具过程": true,
+    "移动端页面无整体横向溢出": true,
+    "只读限制": true,
+    "页面范围约束": true,
+    "LLM接入层本机模拟服务验证": true,
+    "真实模型服务效果评估": false,
+    "分析与静态对照回归测试通过数": 12,
+    "静态托管版": true,
+    "静态界面外部请求": 0,
+    "静态移动端无整体横向溢出": true
+  },
+  "review_steps": [
+    "运行本地看板检查虚构名称和模拟数据标识",
+    "点击 Agent 分析并尝试问题和筛选",
+    "只上传独立展示目录或随附 ZIP，避免上传上级目录中的原始备份"
+  ]
+}

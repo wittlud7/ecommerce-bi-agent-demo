@@ -1,0 +1,17 @@
+{
+  "data_kind": "independently_generated_synthetic_data",
+  "seed": 20261017,
+  "row_count": 9720,
+  "days": 90,
+  "date_start": "2025-01-01",
+  "date_end": "2025-03-31",
+  "source_business_files_read": 0,
+  "original_record_mapping": false,
+  "description": "全部商品、店铺、人员、账号、价格、数量、日期分布及售后数据由固定种子独立生成；没有原始记录映射，不保留企业真实分布。省市边界是通用地理底图。",
+  "scenarios": [
+    "示例增长",
+    "示例下滑",
+    "示例平稳",
+    "人为设定的周期峰值"
+  ]
+}
