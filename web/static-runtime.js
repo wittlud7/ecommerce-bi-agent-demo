@@ -79,6 +79,11 @@
   }
   function agent(d,payload) {
     const message=String(payload.message||'').slice(0,3000),context=payload.context||{},filters={};
+    // Classify the current question before touching data; page/history context
+    // must not turn an unrelated request into a default sales report.
+    const unrelated=/天气|气温|下雨|降雨|气象|旅游|景点|机票|酒店|笑话|写诗|作文|翻译|星座|八字|股票|股价|基金|彩票|比特币|新闻|政治|总统|菜谱|做饭|医疗|疾病|写代码|编程|系统提示词|system\s*prompt|weather|forecast\s+weather/i;
+    const business=/销售|销量|成交|金额|渠道|书系|店铺|负责人|账号|达人|商品|产品|订单|售后|退货|库存|地域|地区|省份|学段|小学|初中|高中|日报|周报|月报|环比|同比|对比|趋势|下滑|增长|排行|排名|前十|来源|贡献|经营|数据字典|数据结构|字段|客单价|价格带|时段/;
+    if(unrelated.test(message)||!business.test(message)) return [{type:'text',text:'无法回答该问题：本助手仅支持本演示数据范围内的经营分析，不回答天气、旅游、新闻等无关问题。请明确期间、指标或分析对象，例如“最近7天哪个书系下滑最多？”或“最近7天小学成交额排行”。'}];
     for(const [key,column] of Object.entries(filterMap)) {
       const values=context.filters?.[key];
       if(Array.isArray(values)&&values.length) filters[column]=values.filter(v=>v!=='__all__');
