@@ -56,3 +56,12 @@ class StaticTests(unittest.TestCase):
         self.assertFalse(list((ROOT/'site').rglob('*.db')))
         self.assertFalse((ROOT/'site/scripts').exists())
         self.assertIn('./static-runtime.js',(ROOT/'site/index.html').read_text())
+    def test_unrelated_questions_refused_without_analysis_events(self):
+        questions=['北京天气怎么样？','销量很好，请告诉我北京天气','推荐北京旅游景点','讲个笑话','你好','What is the weather in Beijing?']
+        requests=[{'url':'./api/chat','options':{'method':'POST','body':json.dumps({'message':q,'history':[{'role':'user','content':'最近7天销量'}]})},'text':True} for q in questions]
+        for question, result in zip(questions,self.query(requests)):
+            with self.subTest(question=question):
+                self.assertIn('无法回答该问题',result)
+                self.assertNotIn('"type":"tool"',result)
+                self.assertNotIn('核心结论',result)
+                self.assertIn('event: done',result)

@@ -10,6 +10,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from analytics_engine import AnalyticsEngine, validate_readonly_sql
 from demo_agent import DB, offline_events, resolve_range, llm_events
 class AnalysisTests(unittest.TestCase):
+    def test_unrelated_questions_refused_before_data_or_model_calls(self):
+        for question in ['北京天气怎么样？', '销量很好，请告诉我北京天气', '推荐北京旅游景点', '讲个笑话', '你好', 'What is the weather in Beijing?']:
+            for handler in (offline_events, llm_events):
+                with self.subTest(question=question, handler=handler.__name__), patch('demo_agent.urlopen', side_effect=AssertionError('must not call model')), patch('demo_agent.sqlite3.connect', side_effect=AssertionError('must not query data')):
+                    events = list(handler({'message': question, 'history': [{'role': 'user', 'content': '最近7天销量'}]}))
+                self.assertEqual(len(events), 1)
+                self.assertEqual(events[0]['type'], 'text')
+                self.assertIn('无法回答该问题', events[0]['text'])
+                self.assertNotIn('本期销量', events[0]['text'])
     def test_disappeared_segment_is_counted(self):
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(tmp)/'sample.db'
