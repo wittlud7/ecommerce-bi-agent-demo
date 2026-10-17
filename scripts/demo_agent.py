@@ -26,6 +26,14 @@ TOOL_SPECS = {
 }
 TOOLS = [{'type': 'function', 'function': {'name': name, 'description': desc, 'parameters': {'type': 'object', 'properties': {k: {'type': v} for k, v in args.items()}, 'additionalProperties': False}}} for name, (desc, args) in TOOL_SPECS.items()]
 
+UNRELATED = re.compile(r'天气|气温|下雨|降雨|气象|旅游|景点|机票|酒店|笑话|写诗|作文|翻译|星座|八字|股票|股价|基金|彩票|比特币|新闻|政治|总统|菜谱|做饭|医疗|疾病|写代码|编程|系统提示词|system\s*prompt|weather|forecast\s+weather', re.I)
+BUSINESS = re.compile(r'销售|销量|成交|金额|渠道|书系|店铺|负责人|账号|达人|商品|产品|订单|售后|退货|库存|地域|地区|省份|学段|小学|初中|高中|日报|周报|月报|环比|同比|对比|趋势|下滑|增长|排行|排名|前十|来源|贡献|经营|数据字典|数据结构|字段|客单价|价格带|时段')
+SCOPE_REFUSAL = '无法回答该问题：本助手仅支持本演示数据范围内的经营分析，不回答天气、旅游、新闻等无关问题。请明确期间、指标或分析对象，例如“最近7天哪个书系下滑最多？”或“最近7天小学成交额排行”。'
+
+def outside_business_scope(payload):
+    message = str(payload.get('message', ''))[:3000]
+    return bool(UNRELATED.search(message)) or not BUSINESS.search(message)
+
 def context_scope(payload):
     context = payload.get('context')
     context = context if isinstance(context, dict) else {}
@@ -104,6 +112,9 @@ def resolve_range(engine, context, message):
     return max(earliest, (latest - timedelta(days=days-1)).strftime('%Y-%m-%d')), latest.strftime('%Y-%m-%d')
 
 def offline_events(payload):
+    if outside_business_scope(payload):
+        yield {'type': 'text', 'text': SCOPE_REFUSAL}
+        return
     message = str(payload.get('message', ''))[:3000]
     context, filters = context_scope(payload)
     # Explicit names in the question refine the page's scope, without invented entities.
@@ -176,6 +187,9 @@ def offline_events(payload):
             yield {'type': 'text', 'text': answer[offset:offset+140]}
 
 def llm_events(payload):
+    if outside_business_scope(payload):
+        yield {'type': 'text', 'text': SCOPE_REFUSAL}
+        return
     api_key = os.environ.get('DEMO_LLM_API_KEY', '')
     base = os.environ.get('DEMO_LLM_BASE_URL', '').rstrip('/')
     model = os.environ.get('DEMO_LLM_MODEL', '')
